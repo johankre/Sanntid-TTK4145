@@ -24,6 +24,7 @@ In this course, we will not be using a GitHub Classroom (as has been done in pre
 - Do the interactive tutorial (https://try.github.io/)
 - Feature branch workflow (https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
 
+
 Some prefer the command line while some prefer something graphical, both are fine. An overview of graphical git clients can be found on https://git-scm.com/downloads/guis/. Some of these have already been installed on the lab computers, but feel free to install whatever you prefer.
 
 
