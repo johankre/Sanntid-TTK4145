@@ -1,6 +1,11 @@
 # Result: Sharing a variable
+***Explain what happened, and why*** 
+- Go  
+The result is different every time we run the programs.
+The concurrent program is ***not*** synchronized, thus the result may deviate from zero after 500 milliseconds.  
 
-## Go
+- C  
+
 
 ### [Go runtime package](https://pkg.go.dev/runtime)
 
@@ -21,5 +26,4 @@
     - ***GOTRACBACK***  
     Controls the amount of output generated when a Go program fails.
     Default prints a tack trace for the current goroutine, eliding functions internal to the runtime system.
-
 
