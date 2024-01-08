@@ -4,8 +4,13 @@ Expected result was $i = 0$, this was not the case.
 Different result every time we run the program
 
 We have two threads that are running independently, but manipulating a shared resource.
-Since the threads are not communicating whit each other, a threads operation can be interrupted at any time.
+Since the threads are not communicating whit each other, a threads operation can be swapped at any time.
 Resulting in discrepancies between expected result and actual result.
+
+Note: only happens whit preemptive scheduling. 
+A race condition occurs.
+
+***Race condition:*** The result depends on ordering in time. 
 
 ### C - Passing Arguments to Threads
 - pthread_create()
