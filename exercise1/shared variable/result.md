@@ -5,7 +5,16 @@ The result is different every time we run the programs.
 The concurrent program is ***not*** synchronized, thus the result may deviate from zero after 500 milliseconds.  
 
 - C  
+Creating two threads: one for increasing *i* and one for decreasing *i*. 
+The program lets both threads finish, thus the result is always 0.
 
+### C - Passing Arguments to Threads
+- pthread_create()
+    - All arguments mus be passed by reference and cast to (void *)
+    - Only one argument to the thread start routine
+    - For multiple arguments
+        - Creating a structure that contains all of the arguments
+        - Pass a pointer to that structure in pthread_create()
 
 ### [Go runtime package](https://pkg.go.dev/runtime)
 

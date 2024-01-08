@@ -2,6 +2,7 @@
 // The executable will be named `foo` if you use the makefile, or `a.out` if you use gcc directly
 
 #include <bits/pthreadtypes.h>
+#include <cstddef>
 #include <pthread.h>
 #include <stdio.h>
 
@@ -29,11 +30,16 @@ int main(){
     // TODO: 
     // start the two functions as their own threads using `pthread_create`
     // Hint: search the web! Maybe try "pthread_create example"?
-    
-    
+    pthread_t thread1, thread2;
+
+    pthread_create(&thread1, NULL, incrementingThreadFunction, NULL);
+    pthread_create(&thread2, NULL, decrementingThreadFunction(), NULL);
+
     // TODO:
     // wait for the two threads to be done before printing the final result
     // Hint: Use `pthread_join`    
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
     
     printf("The magic number is: %d\n", i);
     return 0;
