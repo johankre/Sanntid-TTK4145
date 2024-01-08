@@ -1,8 +1,11 @@
 # Result: Sharing a variable
-***Explain what happened, and why*** 
-- Go  
+***Explain what happened, and why***  
+Expected result was $i = 0$, this was not the case. 
+Different result every time we run the program
 
-- C  
+We have two threads that are running independently, but manipulating a shared resource.
+Since the threads are not communicating whit each other, a threads operation can be interrupted at any time.
+Resulting in discrepancies between expected result and actual result.
 
 ### C - Passing Arguments to Threads
 - pthread_create()
