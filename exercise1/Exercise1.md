@@ -1,7 +1,7 @@
 Exercise 1 : Concurrency Essentials
 ===================================
 
-1: If you are not on the lab
+1: If you are not on the labFUUUUU
 ----------------------------
 
 This exercise does not require that you use the machines at the real-time lab. However, you will need some way to run code written in C and Go. Here are some alternatives if you are not on the lab:
