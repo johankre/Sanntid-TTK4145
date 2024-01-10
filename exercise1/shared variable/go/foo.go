@@ -5,23 +5,32 @@ package main
 import (
 	. "fmt"
 	"runtime"
+	"sync"
 	"time"
 )
 
 var i = 0
 
+// Mutexes for synchronization
+var mutex sync.Mutex
+
 func incrementing() {
 	//TODO: increment i 1000000 times
 	for j := 0; j <= 1000000; j++ {
+		mutex.Lock()
 		i++
+		mutex.Unlock()
 	}
 }
 
 func decrementing() {
 	//TODO: decrement i 1000000 times
 	for j := 1000000; j >= 0; j-- {
+		mutex.Lock()
 		i--
+		mutex.Unlock()
 	}
+
 }
 
 func main() {
