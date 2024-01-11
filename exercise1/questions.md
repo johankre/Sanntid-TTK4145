@@ -91,4 +91,6 @@ Does creating concurrent programs make the programmer's life easier? Harder? May
 > - In some cases easier, problems consisting of separable sub-problems
 
 What do you think is best - *shared variables* or *message passing*?
+> - Depends case by case. 
+> - Liked massage passing best
 
