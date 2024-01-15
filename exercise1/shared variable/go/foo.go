@@ -10,38 +10,44 @@ import (
 
 var i = 0
 
-func incrementing(incr chan int) {
+func incrementing(incr, quit chan int) {
 	for j := 0; j <= 1000000; j++ {
-		i += 1
-		incr <- i
+		// i += 1
+		incr <- 0
 	}
+	quit <- 0
 }
 
-func decrementing(decr chan int) {
+func decrementing(decr, quit chan int) {
 	for j := 0; j <= 1000001; j++ {
-		i -= 1
-		decr <- i
+		// i -= 1
+		decr <- 0
 	}
+	quit <- 0
 
 }
 
 func main() {
 	// What does GOMAXPROCS do? What happens if you set it to 1?
 	runtime.GOMAXPROCS(2)
+	n_quit := 0
 
 	// TODO: Spawn both functions as goroutines
 	incr := make(chan int)
 	decr := make(chan int)
+	quit := make(chan int)
 
-	go incrementing(incr)
-	go decrementing(decr)
+	go incrementing(incr, quit)
+	go decrementing(decr, quit)
 
-	for {
+	for n_quit < 2 {
 		select {
 		case <-incr:
-			i := <-incr
+			i++
 		case <-decr:
-			i := <-decr
+			i--
+		case <-quit:
+			n_quit++
 		}
 	}
 
