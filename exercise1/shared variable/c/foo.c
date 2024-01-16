@@ -23,7 +23,7 @@ void* decrementingThreadFunction(){
     for (int j = 1000000; j >= 0; j--) {
         pthread_mutex_lock(&m_lock);
         i--;
-        pthread_mutex_lock(&m_lock);
+        pthread_mutex_unlock(&m_lock);
     }
     return NULL;
     }
