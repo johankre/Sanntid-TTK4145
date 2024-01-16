@@ -4,61 +4,14 @@ Exercise 1 - Theory questions
 ### Concepts
 
 What is the difference between *concurrency* and *parallelism*?
-
-*Concurrency*
-
->Making progress on more than one task - seemingly at the same time.
->- Multiple threads on the same CPU.
->- Progress by switching between different threads on the same CPU  
->![concurrency](./concurrency.png)
-
-*Parallel execution*
-
->Making progress on more than one task at the exact same time.
->- Multiple CPUs with one corresponding thread. 
->- Does not require switching of threads. 
->- Threads are executing in parallel since they are on different CPUs.
->![parallel_ex](./parallel_ex.png)
-
-*Parallelism*
-
-> Means splitting a single task into subtasks which in turn can be executed in parallel.
-> - Splitting a task into subtasks.
-> - Every subtask has it's own corresponding thread.
-> - These threads are run on multiple CPUs such that there is *parallel execution*.
-> - Combination of *concurrency* and *parallel execution*.
-> ![parallelism](./parallelism.png)
-
-
+> *Your answer here*
 
 What is the difference between a *race condition* and a *data race*? 
-
-*Race condition*
-
-> - Two or more operations are happening at the same time to shared data.
-> - Undefined in which order threads will try to perform operations on the shared data.
-> - The change in data is thus dependant on the thread scheduling.
-> - Think: the threads are *racing* to access/change the shared data.
-
-*Data race*
-
-> Two or more threads access the same memory location (*concurrently*).
-> Example: problem 3.
-
+> *Your answer here* 
+ 
 *Very* roughly - what does a *scheduler* do, and how does it do it?
+> *Your answer here* 
 
-> - Coordinate when a given number of threads should run on a CPU. 
-> - Threads can exist in one of three states: ***Waiting, Runnable,*** or ***Executing***. 
-
-*preemptive scheduling*
-
-> - The OS decides.
-> - Needs some form of time sharing system.
-
-
-*Cooperative scheduling*
-
-> - Decision of the process.
 
 ### Engineering
 
