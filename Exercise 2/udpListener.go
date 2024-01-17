@@ -21,6 +21,7 @@ func listener(port string) {
 		}
 		if n != 0 {
 			fmt.Println(string(buf[:n]))
+            break
 		}
 	}
 
