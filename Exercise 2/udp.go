@@ -5,7 +5,7 @@ import (
 	"net"
 )
 
-func startUDPServer(port string) {
+func startUDPServer(port string, quit chan int) {
 	// Resolve the address to bind to
 	addr, err := net.ResolveUDPAddr("udp", ":"+port)
 	if err != nil {
@@ -36,7 +36,11 @@ func startUDPServer(port string) {
 
 		// Print received data
 		fmt.Printf("Received %d bytes from %s: %s\n", n, remoteAddr, buffer[:n])
+		if n != 0 {
+			quit <- 0
+		}
 	}
+
 }
 
 func broadcastUDPMessage(message string, port string) {
@@ -66,18 +70,20 @@ func broadcastUDPMessage(message string, port string) {
 	}
 
 	fmt.Println("Message broadcasted successfully:", message)
+
 }
 
 func main() {
 	port := "20024" // Set the desired UDP port
+	quit := make(chan int, 0)
 
 	// Start the UDP server in a goroutine
-	go startUDPServer(port)
+	go startUDPServer(port, quit)
 
 	// Broadcast a message
 	message := "Stay humble, stack sats"
 	broadcastUDPMessage(message, port)
 
 	// Keep the program running
-	select {}
+	<-quit
 }
