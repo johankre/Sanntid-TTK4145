@@ -24,3 +24,7 @@ func listener() {
 		fmt.Println(data)
 	}
 }
+
+func main(){
+    listener()
+}
