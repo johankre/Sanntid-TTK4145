@@ -49,6 +49,7 @@ What is the difference between a *race condition* and a *data race*?
 
 > - Coordinate when a given number of threads should run on a CPU. 
 > - Threads can exist in one of three states: ***Waiting, Runnable,*** or ***Executing***. 
+> - Threads start, run, and complete in an ***interleaved*** fashion. 
 
 *preemptive scheduling*
 
@@ -63,15 +64,33 @@ What is the difference between a *race condition* and a *data race*?
 ### Engineering
 
 Why would we use multiple threads? What kinds of problems do threads solve?
-> *Your answer here*
+
+> Problems that have subproblems, which can be solved by parallel execution.
 
 Some languages support "fibers" (sometimes called "green threads") or "coroutines"? What are they, and why would we rather use them over threads?
-> *Your answer here*
+
+> - Lightweight treads (similar to os-treads).
+> - Cooperatively scheduled.
+> - Fibers yield themselves to allow another fiber to run.
+> - Cooperative scheduling(N:1) leads to the elimination of:
+>   - race data
+>   - dead lock
+>   - live lock
+> - Thread construction has overhead. Thus cutting jobs to fine will lead to a lot of overhead.
+> resulting in diminishing returns.
+> Fibers do not have this attribute, we are encouraged to cut jobs real fine.
+> - No need for ***context switches (CS)***, since CS is only necessary because the scheduling is handled by the OS.
+> There is less overhead caused by CS if we delegate the scheduling instead of the OS.
+> - Threads are a finite resource.
+
+
 
 Does creating concurrent programs make the programmer's life easier? Harder? Maybe both?
-> *Your answer here*
+
+> - Introduces new problems such as raise conditions.
+> - In some cases easier, problems consisting of separable sub-problems
 
 What do you think is best - *shared variables* or *message passing*?
-> *Your answer here*
-
+> - Depends case by case. 
+> - Liked massage passing best
 

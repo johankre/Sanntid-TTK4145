@@ -5,37 +5,39 @@ import (
 	"net"
 )
 
-func sendMessageToServer(serverAddr, message string) error {
-	// Resolve the server address
-	serverTCPAddr, err := net.ResolveTCPAddr("tcp", serverAddr)
+func sendTCPMessage(message string, serverAddr string) {
+	conn, err := net.Dial("tcp", serverAddr)
 	if err != nil {
-		return fmt.Errorf("Error resolving server address: %v", err)
-	}
-
-	// Establish a TCP connection to the server
-	conn, err := net.DialTCP("tcp", nil, serverTCPAddr)
-	if err != nil {
-		return fmt.Errorf("Error connecting to server: %v", err)
+		fmt.Println("Error connecting:", err)
+		return
 	}
 	defer conn.Close()
 
+	// Convert the message to bytes
+	messageBytes := []byte(message)
+
 	// Send the message to the server
-	_, err = conn.Write([]byte(message))
+	_, err = conn.Write(messageBytes)
 	if err != nil {
-		return fmt.Errorf("Error sending message to server: %v", err)
+		fmt.Println("Error writing:", err)
+		return
 	}
 
-	fmt.Printf("Message sent to server %s: %s\n", serverAddr, message)
+	// Read the response from the server
+	buffer := make([]byte, 1024)
+	n, err := conn.Read(buffer)
+	if err != nil {
+		fmt.Println("Error reading response:", err)
+		return
+	}
 
-	return nil
+	fmt.Printf("Server response: %s\n", buffer[:n])
 }
 
 func main() {
-	serverAddress := "10.100.23.129:34933" // Replace with the actual IP address and port of your server
-	messageToSend := "Hello, server!"
+	serverAddr := "10.100.23.129:33546" // Set the server address and port
 
-	err := sendMessageToServer(serverAddress, messageToSend)
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
+	// Send a message to the server
+	message := "Stay humble, stack sats"
+	sendTCPMessage(message, serverAddr)
 }
