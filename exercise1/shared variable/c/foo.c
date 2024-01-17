@@ -1,10 +1,12 @@
 // Compile with `gcc foo.c -Wall -std=gnu99 -lpthread`, or use the makefile
 // The executable will be named `foo` if you use the makefile, or `a.out` if you use gcc directly
+
 // A mutex is always used to protect multiple access to a shared object.
 // Thus the right choice for this application. 
 
 #include <bits/pthreadtypes.h>
 #include <pthread.h>
+ 
 #include <stdio.h>
 
 int i = 0;
