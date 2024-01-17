@@ -1,4 +1,4 @@
-package TCP
+package main
 
 import (
 	"fmt"
@@ -30,9 +30,7 @@ func TCPListen1(){
         if err != nil {
             panic(err)
         }
-        if n > 0 {
             fmt.Println(buf[:n])
-        }
         
 	}
 
@@ -54,5 +52,5 @@ func TCPcon() {
 func main(){
     go TCPListen1()
     TCPcon()
-    time.Sleep(1000000)
+    time.Sleep(1000 * time.Millisecond)
 }
