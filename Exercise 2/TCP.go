@@ -7,7 +7,7 @@ import (
 )
 
 const(
-    TCPport1 = ":34933"
+    TCPport1 = "10.100.23.129:34933"
     TCPport2 = ":33546"
 )
 
