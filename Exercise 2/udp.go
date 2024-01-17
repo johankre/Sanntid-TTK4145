@@ -69,7 +69,7 @@ func broadcastUDPMessage(message string, port string) {
 }
 
 func main() {
-	port := "30000" // Set the desired UDP port
+	port := "20024" // Set the desired UDP port
 
 	// Start the UDP server in a goroutine
 	go startUDPServer(port)
