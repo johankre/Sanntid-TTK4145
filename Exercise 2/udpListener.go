@@ -1,30 +1,31 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"net"
-	"os"
 )
 
-func listener() {
-	l, err := net.Listen("udp", ":30000")
+func listener(port string) {
+	pc, err := net.ListenPacket("udp", port)
 	if err != nil {
 		panic(err)
 	}
-	defer l.Close()
+	defer pc.Close()
+
+	buf := make([]byte, 1024)
 
 	for {
-		// Listen for connection
-		reader := bufio.NewReader(os.Stdin)
-		data, err := reader.ReadString('\n')
+		n, _, err := pc.ReadFrom(buf)
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(data)
+		if n != 0 {
+			fmt.Println(string(buf[:n]))
+		}
 	}
+
 }
 
-func main(){
-    listener()
+func main() {
+	listener(":30000")
 }
