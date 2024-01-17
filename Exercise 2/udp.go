@@ -40,6 +40,6 @@ func startUDPServer(port string) {
 }
 
 func main() {
-	port := "12345" // Set the desired UDP port
+	port := "30000" // Set the desired UDP port
 	startUDPServer(port)
 }
