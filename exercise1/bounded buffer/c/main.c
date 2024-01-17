@@ -23,8 +23,8 @@ struct BoundedBuffer* buf_new(int size){
     
     pthread_mutex_init(&buf->mtx, NULL);
     // TODO: initialize semaphores
-    //sem_init(&buf->capacity,      0, /*starting value?*/);
-	//sem_init(&buf->numElements,   0, /*starting value?*/);
+    sem_init(&buf->capacity,      0, 1);
+	sem_init(&buf->numElements,   0, 1);
     
     return buf;    
 }
@@ -42,18 +42,33 @@ void buf_destroy(struct BoundedBuffer* buf){
 
 void buf_push(struct BoundedBuffer* buf, int val){    
     // TODO: wait for there to be room in the buffer
+    sem_wait(&buf->capacity);
+    sem_wait(&buf->numElements);
+    pthread_mutex_lock(&buf->mtx);
     // TODO: make sure there is no concurrent access to the buffer internals
     
     rb_push(buf->buf, val);
+
+    sem_post(&buf->capacity);
+    sem_post(&buf->numElements);
+    pthread_mutex_unlock(&buf->mtx);
     
     
     // TODO: signal that there are new elements in the buffer    
 }
 
 int buf_pop(struct BoundedBuffer* buf){
-    // TODO: same, but different?
+    sem_wait(&buf->capacity);
+    //sem_wait(&buf->buf); 
+    sem_wait(&buf->numElements);
+    pthread_mutex_lock(&buf->mtx);
     
-    int val = rb_pop(buf->buf);    
+    int val = rb_pop(buf->buf);
+
+    sem_post(&buf->capacity);
+    //sem_post(&buf->buf); 
+    sem_post(&buf->numElements);
+    pthread_mutex_unlock(&buf->mtx);
     
     return val;
 }
