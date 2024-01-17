@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net"
-	"strconv"
 	"time"
 )
 
@@ -49,6 +48,8 @@ func udpSend() {
     }
 
 func main() {
-	// listener(":30000")
+	go listener(UDPSendPort)
 	udpSend()
+
+    time.Sleep(1000000)
 }
