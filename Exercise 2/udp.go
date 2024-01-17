@@ -12,6 +12,7 @@ func startUDPServer(port string) {
 		fmt.Println("Error resolving address:", err)
 		return
 	}
+	fmt.Println("Resolved UDP Address:", addr)
 
 	// Create a UDP listener
 	conn, err := net.ListenUDP("udp", addr)
