@@ -38,7 +38,21 @@ func TCPListen1(){
 
 }
 
+func TCPcon() {
+    conn, err := net.Dial("tcp", TCPport1)
+        if err != nil {
+            panic(err)
+        }
+    defer conn.Close()
+
+    _, err = conn.Write([]byte("test"))
+        if err != nil {
+            panic(err)
+        }
+}
+
 func main(){
     go TCPListen1()
+    TCPcon()
     time.Sleep(1000000)
 }
