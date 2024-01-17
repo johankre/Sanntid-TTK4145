@@ -35,9 +35,9 @@ func sendTCPMessage(message string, serverAddr string) {
 }
 
 func main() {
-	serverAddr := "127.0.0.1:12345" // Set the server address and port
+	serverAddr := "10.100.23.129:33546" // Set the server address and port
 
 	// Send a message to the server
-	message := "Hello, TCP Server!"
+	message := "Stay humble, stack sats"
 	sendTCPMessage(message, serverAddr)
 }
