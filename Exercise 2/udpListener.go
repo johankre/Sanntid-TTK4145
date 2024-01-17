@@ -39,15 +39,14 @@ func udpSend() {
 	if err != nil {
 		panic(err)
 	}
-	n := 0
-	for {
-		t := strconv.Itoa(n)
-		msg := "Hellow world!, " + t
-		conn.Write([]byte(msg))
-		n++
-		time.Sleep(100)
-	}
-}
+
+    defer conn.Close()
+
+        _, err = conn.Write([]byte("test"))
+        if err != nil {
+            panic(err)
+        }
+    }
 
 func main() {
 	// listener(":30000")
