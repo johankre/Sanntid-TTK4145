@@ -25,11 +25,9 @@ func listener(port string) {
 		}
 		// print IP addres
 		fmt.Println(addr.String())
-		if n != 0 {
 			// print msg. on port
 			fmt.Println(string(buf[:n]))
-			break
-		}
+            
 	}
 
 }
