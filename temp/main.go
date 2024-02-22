@@ -1,17 +1,20 @@
 package main
 
 import (
-    "main/network"
-	"net"
-    "time"
+	"main/network"
+	"time"
 )
 
 
 func main() {
-    go network.Listener(network.UDPBrodcastPort)
+    ports := network.GetNetworkConfig()
+    
+    for _, port := range ports.UDPReceve {
+        go network.Listener(port)
+    }
 
-
-    var conn net.Conn = network.UdpInitDail(network.UDPBrodcastPort)
+    conn := network.UdpInitDail(ports.UDPBrodcast)
+    
     defer conn.Close()
 
     var testQueue = [4][3]int{
@@ -29,7 +32,8 @@ func main() {
     }
 
     for { 
-        network.BrodcastPacket(packet, conn)
+        network.BroadcastPacket(packet, conn)
         time.Sleep(1000 * time.Millisecond)
     }
+
 }

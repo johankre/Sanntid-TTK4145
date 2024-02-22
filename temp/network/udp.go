@@ -4,17 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+	"os"
 )
 
 // Globals
 const ( 
-    UDPBrodcastPort string = "255.255.255.255:20024"
     N_FLOORS int = 4
     N_BUTTONS int = 3
 )
 
-
-// NB. hardcoded values
+// Information to send over UDP broadcast
 type Packet struct {
     Version     int         `json:"Version"`
     ElevatorNum int         `json:"ElevatorNum"`
@@ -22,6 +21,32 @@ type Packet struct {
     Queue       [N_FLOORS][N_BUTTONS]int   `json:"Queue"`
 }
 
+type UDPPorts struct {
+    UDPBrodcast string      `json:"UDPBroadcastPort"`
+    UDPReceve   []string    `json:"UDPRecevePorts"` 
+}
+
+func GetNetworkConfig() (elevatorUDPPorts UDPPorts) {
+    jsonData, err := os.ReadFile("config.json")
+
+    // can't read the config file, try again
+    if err != nil {
+        fmt.Printf("/network/udp.go: Error reading config file: %s\n", err)
+        GetNetworkConfig()
+    }
+    
+    // Parse jsonData into ElevatorPorts struct
+    err = json.Unmarshal(jsonData,&elevatorUDPPorts)
+
+    if err != nil {
+        fmt.Printf("/network/upd.go: Error unmarshal json data to ElevatorPorts struct: %s\n", err)
+
+        // try again
+        GetNetworkConfig()
+    }
+
+    return
+}
 func (packet *Packet) display() {
     fmt.Printf("Elevator number: \t%v\n", packet.ElevatorNum)
     fmt.Printf("Version: \t\t%v\n", packet.Version)
@@ -73,7 +98,7 @@ func UdpInitDail(port string) net.Conn {
     return conn
 }
 
-func BrodcastPacket(packet Packet, conn net.Conn){
+func BroadcastPacket(packet Packet, conn net.Conn){
     var jsonPacket []byte = jsonEncodeElevatorData(packet)
     _, err := conn.Write(jsonPacket)
     if err != nil {
@@ -89,4 +114,5 @@ func jsonEncodeElevatorData(packet Packet) []byte {
     }
     return marshaldPacket
 } 
+
 
